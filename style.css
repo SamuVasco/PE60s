@@ -1,0 +1,175 @@
+/* 1. CONFIGURAÇÕES GERAIS */
+:root {
+    --gradiente-terra: linear-gradient(
+        to top,
+        #D0A56E, #BA8C59, #B58753,
+        #AA7E4B, #966F42, #715030, #66472F
+    );
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-image: url('imagens/fundo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Escurecimento gradual do cenário */
+body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation: escurecerFundo 60s linear forwards;
+}
+
+/* 2. CENÁRIO */
+.solo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--gradiente-terra);
+    box-shadow: 10px 10px 30px #000000;
+    z-index: 5;
+}
+
+.nuvem {
+    position: absolute;
+    top: 50px;
+    right: -350px;
+    width: 500px;
+    height: 100px;
+    background-image: url('imagens/nuvem.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+    animation: moverNuvem 60s linear infinite;
+}
+
+/* 3. INTERFACE DO JOGO (HUD) */
+#timer,
+#vidas {
+    position: absolute;
+    top: 20px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 100;
+}
+
+#timer {
+    right: 20px;
+    background-color: rgba(128, 92, 50, 0.74);
+}
+
+#vidas {
+    left: 20px;
+    background-color: rgba(255, 43, 43, 0.856);
+}
+
+/* 4. ELEMENTOS DO JOGO */
+.personagem {
+    position: absolute;
+    bottom: 62px;
+    left: 500px;
+    width: 100px;
+    height: 100px;
+    background-image: url('imagens/personagem.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+.obstaculo {
+    position: absolute;
+    bottom: 85px;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    background-color: #ff0101;
+    border-radius: 30%;
+    box-shadow: 1px 15px 20px #ff2323;
+    z-index: 6;
+}
+
+.item-vida {
+    display: none;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: #2ece4b;
+    border-radius: 80%;
+    box-shadow: 1px 10px 30px rgba(81, 255, 58, 0.986);
+    z-index: 6;
+}
+
+/* 5. TELAS DE FIM DE JOGO */
+.game-over-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-over-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.game-over-img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    animation: popIn 0.4s ease-out;
+}
+
+.btn-reiniciar {
+    padding: 12px 28px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background: var(--gradiente-terra);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.btn-reiniciar:hover {
+    transform: scale(1.1);
+}
+
+/* 6. ANIMAÇÕES */
+@keyframes escurecerFundo {
+    0% { background-color: rgba(0, 0, 0, 0); }
+    50% { background-color: rgba(0, 0, 0, 0.5); }
+    100% { background-color: rgba(0, 0, 0, 0.8); }
+}
+
+@keyframes moverNuvem {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100vw - 150px)); }
+}
+
+@keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
